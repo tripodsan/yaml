@@ -142,6 +142,23 @@ key2: value 2
         comment: 'c3\nc4'
       })
     })
+
+    test('multiline leading comments', () => {
+      const src = `
+map:
+   foo0:
+     key2: value2
+
+#   foo1:
+#     key0: value0
+#     key1: value1
+
+   foo2:
+     key3: value3
+`
+      const doc = YAML.parseDocument(src)
+      expect(doc.toJSON()).toMatchObject({"map": {"foo0": {"key2": "value2"}, "foo2": {"key3": "value3"}}});
+    })
   })
 
   describe('map-in-seq comments', () => {
